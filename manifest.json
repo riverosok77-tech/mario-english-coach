@@ -1,7 +1,7 @@
 {
-  "name": "Mario Coach AI V8",
+  "name": "Mario Coach AI V9",
   "short_name": "Mario English",
-  "start_url": "./",
+  "start_url": "./?v=9",
   "display": "standalone",
   "background_color": "#050b18",
   "theme_color": "#153f88",

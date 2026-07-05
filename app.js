@@ -4,6 +4,40 @@ const questions=["Tell me about your day.","What did you do yesterday?","What ar
 const shadows=["I want to improve my American pronunciation.","Could you say that again, please?","I usually go to work at eight.","Yesterday I worked all day and then I went home.","I feel more confident when I practice every day."];
 const sounds=[{title:"TH sound: think / three / thank",tip:"Pon la punta de la lengua suavemente entre los dientes y sopla. No digas “tink”.",example:"think, three, thank you"},{title:"V sound: very / voice / vacation",tip:"Toca el labio inferior con los dientes superiores y vibra. No lo pronuncies como B.",example:"very good voice"},{title:"American R: car / work / teacher",tip:"Lleva la lengua hacia atrás sin tocar el paladar.",example:"car, work, teacher"},{title:"Final ED: worked / played / wanted",tip:"Worked suena T, played suena D, wanted suena ID.",example:"worked, played, wanted"}];
 
+async function clearOldCache(){
+  try {
+    if ("serviceWorker" in navigator) {
+      const regs = await navigator.serviceWorker.getRegistrations();
+      for (const reg of regs) await reg.unregister();
+    }
+    if ("caches" in window) {
+      const keys = await caches.keys();
+      for (const key of keys) await caches.delete(key);
+    }
+    localStorage.setItem("marioCacheFixedV9","yes");
+    alert("Caché vieja eliminada. La página se recargará.");
+    location.reload(true);
+  } catch(e) {
+    alert("No se pudo limpiar todo, pero la V9 seguirá funcionando.");
+  }
+}
+
+(async function initCacheFix(){
+  if (localStorage.getItem("marioCacheFixedV9") !== "yes") {
+    try {
+      if ("serviceWorker" in navigator) {
+        const regs = await navigator.serviceWorker.getRegistrations();
+        for (const reg of regs) await reg.unregister();
+      }
+      if ("caches" in window) {
+        const keys = await caches.keys();
+        for (const key of keys) await caches.delete(key);
+      }
+      localStorage.setItem("marioCacheFixedV9","yes");
+    } catch(e) {}
+  }
+})();
+
 document.querySelectorAll(".tabs button").forEach(btn=>btn.addEventListener("click",()=>{document.querySelectorAll(".tabs button").forEach(b=>b.classList.remove("active"));document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));btn.classList.add("active");document.getElementById(btn.dataset.screen).classList.add("active");}));
 window.addEventListener("beforeinstallprompt",e=>{e.preventDefault();deferredPrompt=e;});
 function installApp(){if(deferredPrompt){deferredPrompt.prompt();}else alert("En Chrome toca ⋮ y luego Agregar a pantalla principal.");}
@@ -21,12 +55,11 @@ async function correctSpeaking(){const text=document.getElementById("answer").va
 function checkShadow(){const target=getText("shadowPhrase").toLowerCase().replace(/[^a-z\s]/g,"").trim();const ans=document.getElementById("shadowAnswer").value.toLowerCase().replace(/[^a-z\s]/g,"").trim();if(!ans){document.getElementById("shadowFeedback").innerHTML="Primero repite la frase.";return;}const tw=target.split(/\s+/),aw=ans.split(/\s+/);const hits=tw.filter(w=>aw.includes(w)).length;const score=Math.round(hits/tw.length*100);addProgress(aw.length,score,10);document.getElementById("shadowFeedback").innerHTML=`<b>Coincidencia:</b> ${score}%<br><b>Frase correcta:</b> ${getText("shadowPhrase")}<br>Ahora repítela copiando ritmo y entonación.`;}
 async function testApi(){const status=document.getElementById("apiStatus");status.innerHTML="Probando conexión...";try{const reply=await callMarioAI("Hello Mario, this is a test.","test");status.innerHTML="✅ Conexión correcta:<br>"+format(reply);}catch(e){status.innerHTML="❌ "+escapeHtml(e.message);}}
 function addBubble(type,html){const chat=document.getElementById("chat");const div=document.createElement("div");div.className="bubble "+type;div.innerHTML=html;chat.appendChild(div);chat.scrollTop=chat.scrollHeight;}
-function loadProgress(){return JSON.parse(localStorage.getItem("marioV8")||'{"xp":0,"sessions":0,"words":0,"scores":[],"lastDay":"","streak":0}');}
-function saveProgress(p){localStorage.setItem("marioV8",JSON.stringify(p));updateStats();}
+function loadProgress(){return JSON.parse(localStorage.getItem("marioV9")||'{"xp":0,"sessions":0,"words":0,"scores":[],"lastDay":"","streak":0}');}
+function saveProgress(p){localStorage.setItem("marioV9",JSON.stringify(p));updateStats();}
 function addProgress(words,score,xp){const p=loadProgress();const today=new Date().toDateString();if(p.lastDay!==today){p.streak=(p.lastDay?p.streak+1:1);p.lastDay=today;}p.sessions++;p.words+=words;p.scores.push(score);p.xp+=xp;saveProgress(p);}
 function updateStats(){const p=loadProgress();const avg=p.scores.length?Math.round(p.scores.reduce((a,b)=>a+b,0)/p.scores.length):0;document.getElementById("xp").textContent=p.xp;document.getElementById("streak").textContent=p.streak;document.getElementById("sessions").textContent=p.sessions;document.getElementById("avg").textContent=avg;}
-function escapeHtml(s){return String(s).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;","\\\"":"&quot;","'":"&#39;"}[m]));}
+function escapeHtml(s){return String(s).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[m]));}
 function format(s){return escapeHtml(s).replace(/\n/g,"<br>");}
 function stripHtml(s){return String(s).replace(/<[^>]*>/g," ");}
-if("serviceWorker" in navigator){navigator.serviceWorker.register("sw.js").catch(()=>{});}
 updateStats();
