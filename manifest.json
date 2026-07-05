@@ -1,0 +1,15 @@
+{
+  "name": "American English Coach AI - Mario",
+  "short_name": "Mario English",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#071122",
+  "theme_color": "#123c84",
+  "icons": [
+    {
+      "src": "assets/icon.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml"
+    }
+  ]
+}

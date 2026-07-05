@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mario Coach AI</title>
+  <link rel="manifest" href="manifest.json" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="app">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="avatar">👨🏻‍🏫</div>
+        <div>
+          <h1>Mario Coach AI</h1>
+          <p>American English · B1</p>
+        </div>
+      </div>
+
+      <button class="nav active" data-screen="dashboard">🏠 Inicio</button>
+      <button class="nav" data-screen="speaking">🎙️ Speaking</button>
+      <button class="nav" data-screen="shadowing">🎧 Shadowing</button>
+      <button class="nav" data-screen="pronunciation">🇺🇸 Pronunciation</button>
+      <button class="nav" data-screen="roleplay">🎭 Role Play</button>
+      <button class="nav" data-screen="progress">📈 Progreso</button>
+    </aside>
+
+    <main class="main">
+      <section id="dashboard" class="screen active">
+        <div class="hero">
+          <div>
+            <span class="badge">🇺🇸 General American Accent</span>
+            <h2>Hi Mario! Ready to speak American English?</h2>
+            <p>Tu profesor virtual para mejorar speaking, pronunciación, shadowing y fluidez.</p>
+            <button class="primary" onclick="speakText('Hi Mario! I am your American English coach. Today we are going to improve your speaking. Are you ready?')">🔊 Escuchar a Mario</button>
+          </div>
+          <div class="teacher-card">
+            <div class="big-avatar">👨🏻‍🏫</div>
+            <h3>Professor Mario</h3>
+            <p>Speaking Coach</p>
+          </div>
+        </div>
+
+        <div class="cards">
+          <div class="card"><strong id="statSessions">0</strong><span>Prácticas</span></div>
+          <div class="card"><strong id="statWords">0</strong><span>Palabras</span></div>
+          <div class="card"><strong id="statScore">0</strong><span>Puntaje</span></div>
+        </div>
+      </section>
+
+      <section id="speaking" class="screen">
+        <h2>🎙️ Speaking Coach</h2>
+        <div class="panel">
+          <p class="label">Mario pregunta:</p>
+          <h3 id="question">Tell me about your day.</h3>
+          <button onclick="newQuestion()">Nueva pregunta</button>
+          <button onclick="speakText(document.getElementById('question').textContent)">🔊 Escuchar</button>
+          <button class="primary" onclick="startListening('answer')">🎙️ Responder</button>
+          <textarea id="answer" placeholder="Habla o escribe tu respuesta en inglés..."></textarea>
+          <button class="success" onclick="correctAnswer()">✅ Corregir como profesor</button>
+          <div id="feedback" class="feedback">Tu corrección aparecerá aquí.</div>
+        </div>
+      </section>
+
+      <section id="shadowing" class="screen">
+        <h2>🎧 Shadowing</h2>
+        <div class="panel">
+          <p class="label">Escucha y repite exactamente:</p>
+          <h3 id="shadowPhrase">I want to improve my American pronunciation.</h3>
+          <button onclick="newShadow()">Nueva frase</button>
+          <button onclick="speakText(document.getElementById('shadowPhrase').textContent, 0.75)">🔊 Lento</button>
+          <button onclick="speakText(document.getElementById('shadowPhrase').textContent, 1)">🔊 Normal</button>
+          <button class="primary" onclick="startListening('shadowAnswer')">🎙️ Repetir</button>
+          <textarea id="shadowAnswer" placeholder="Repite la frase..."></textarea>
+          <button class="success" onclick="checkShadow()">✅ Comparar</button>
+          <div id="shadowFeedback" class="feedback">Tu resultado aparecerá aquí.</div>
+        </div>
+      </section>
+
+      <section id="pronunciation" class="screen">
+        <h2>🇺🇸 Pronunciation Lab</h2>
+        <div class="panel">
+          <h3 id="soundTitle">TH sound: think / three / thank</h3>
+          <p id="soundTip">Pon la punta de la lengua suavemente entre los dientes y sopla.</p>
+          <button onclick="newSound()">Otro sonido</button>
+          <button onclick="speakCurrentSound()">🔊 Escuchar ejemplo</button>
+        </div>
+      </section>
+
+      <section id="roleplay" class="screen">
+        <h2>🎭 Role Play</h2>
+        <div class="panel">
+          <h3 id="roleTitle">At a restaurant</h3>
+          <p id="roleLine">Mario: Hi! Are you ready to order?</p>
+          <button onclick="newRole()">Nuevo role play</button>
+          <button onclick="speakText(document.getElementById('roleLine').textContent.replace('Mario: ', ''))">🔊 Escuchar</button>
+        </div>
+      </section>
+
+      <section id="progress" class="screen">
+        <h2>📈 Progreso</h2>
+        <div class="cards">
+          <div class="card"><strong id="pSessions">0</strong><span>Prácticas</span></div>
+          <div class="card"><strong id="pWords">0</strong><span>Palabras habladas</span></div>
+          <div class="card"><strong id="pScore">0</strong><span>Promedio</span></div>
+        </div>
+        <button onclick="resetProgress()">Reiniciar progreso</button>
+      </section>
+    </main>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
