@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Mario Coach AI V5</title>
+  <title>Mario Coach AI V6</title>
   <link rel="manifest" href="manifest.json"/>
   <link rel="stylesheet" href="style.css"/>
 </head>
@@ -13,24 +13,24 @@
       <div class="logo">👨🏻‍🏫</div>
       <div>
         <h1>Mario Coach AI</h1>
-        <p>American English · B1 to B2 · Speaking Coach</p>
+        <p>American English · B1 → B2 · AI Speaking Coach</p>
       </div>
     </header>
 
     <section class="hero">
       <div>
         <span class="badge">🇺🇸 General American Accent</span>
-        <h2>Hi Mario! Let’s train your speaking today.</h2>
-        <p>Practica con Mario: speaking, shadowing, pronunciación americana, role plays, XP y progreso diario.</p>
+        <h2>Hi Mario! Let’s have a real English conversation.</h2>
+        <p>V6 agrega modo conversación, corrección avanzada local y estructura lista para conectar IA real con backend seguro.</p>
         <div class="actions">
-          <button class="primary" onclick="marioSpeak('Hi Mario! Today we are going to train your American English speaking. Let us begin.')">🔊 Escuchar a Mario</button>
+          <button class="primary" onclick="marioSpeak('Hi Mario! I am ready to help you speak American English with confidence. Let us begin.')">🔊 Escuchar a Mario</button>
           <button onclick="installApp()">📲 Instalar app</button>
         </div>
       </div>
       <div class="coach">
         <div class="coach-face">👨🏻‍🏫</div>
         <h3>Professor Mario</h3>
-        <p>Your American English Coach</p>
+        <p>AI American English Coach</p>
       </div>
     </section>
 
@@ -42,16 +42,31 @@
     </section>
 
     <nav class="tabs">
-      <button class="active" data-screen="speaking">🎙️ Speaking</button>
+      <button class="active" data-screen="conversation">🤖 Conversación</button>
+      <button data-screen="speaking">🎙️ Speaking</button>
       <button data-screen="shadowing">🎧 Shadowing</button>
       <button data-screen="pronunciation">🇺🇸 Pronunciation</button>
       <button data-screen="roleplay">🎭 Role Play</button>
-      <button data-screen="daily">📅 Plan diario</button>
-      <button data-screen="ai">🧠 IA</button>
+      <button data-screen="settings">⚙️ IA Setup</button>
     </nav>
 
     <main>
-      <section id="speaking" class="screen active">
+      <section id="conversation" class="screen active">
+        <div class="panel">
+          <p class="label">Conversación guiada con Mario</p>
+          <div id="chat" class="chat">
+            <div class="bubble mario"><b>Mario:</b> Hi Mario! Tell me one thing you did today.</div>
+          </div>
+          <textarea id="chatInput" placeholder="Habla o escribe tu respuesta en inglés..."></textarea>
+          <div class="actions">
+            <button class="primary" onclick="listenTo('chatInput')">🎙️ Hablar</button>
+            <button class="success" onclick="sendChat()">Enviar a Mario</button>
+            <button onclick="marioSpeak('Hi Mario! Tell me one thing you did today.')">🔊 Escuchar pregunta</button>
+          </div>
+        </div>
+      </section>
+
+      <section id="speaking" class="screen">
         <div class="panel">
           <p class="label">Mario pregunta:</p>
           <h2 id="question">Tell me about your day.</h2>
@@ -68,7 +83,7 @@
 
       <section id="shadowing" class="screen">
         <div class="panel">
-          <p class="label">Copia el ritmo americano:</p>
+          <p class="label">Copia ritmo, velocidad y entonación:</p>
           <h2 id="shadowPhrase">I want to improve my American pronunciation.</h2>
           <div class="actions">
             <button onclick="newShadow()">Nueva frase</button>
@@ -84,7 +99,7 @@
 
       <section id="pronunciation" class="screen">
         <div class="panel">
-          <p class="label">Pronunciation Lab</p>
+          <p class="label">Pronunciation Lab · American English</p>
           <h2 id="soundTitle">TH sound: think / three / thank</h2>
           <p id="soundTip">Pon la punta de la lengua suavemente entre los dientes y sopla. No digas “tink”.</p>
           <div class="actions">
@@ -96,7 +111,7 @@
 
       <section id="roleplay" class="screen">
         <div class="panel">
-          <p class="label">Conversación simulada</p>
+          <p class="label">Role Play</p>
           <h2 id="roleTitle">At a restaurant</h2>
           <p id="roleLine">Mario: Hi! Are you ready to order?</p>
           <div class="actions">
@@ -110,39 +125,24 @@
         </div>
       </section>
 
-      <section id="daily" class="screen">
+      <section id="settings" class="screen">
         <div class="panel">
-          <p class="label">Plan diario recomendado</p>
-          <h2>20 minutos por día</h2>
-          <ol class="plan">
-            <li>5 min: escuchar y repetir shadowing.</li>
-            <li>5 min: responder preguntas B1.</li>
-            <li>5 min: practicar un sonido americano.</li>
-            <li>5 min: role play con Mario.</li>
-          </ol>
-          <button class="primary" onclick="completeDaily()">✅ Marcar práctica diaria</button>
-        </div>
-      </section>
-
-      <section id="ai" class="screen">
-        <div class="panel">
-          <p class="label">Modo IA real</p>
-          <h2>Preparado para conectar inteligencia artificial</h2>
-          <p>La app ya puede funcionar con ejercicios locales. Para correcciones avanzadas y conversación libre, se conecta a un backend con IA.</p>
+          <p class="label">IA Setup</p>
+          <h2>Modo IA real preparado</h2>
+          <p>Para conversaciones inteligentes de verdad, esta V6 incluye una carpeta backend. La API key nunca debe ir dentro del frontend.</p>
           <div class="ai-box">
-            <b>Próximo desarrollo:</b>
+            <b>Estado actual:</b>
             <ul>
-              <li>Backend seguro.</li>
-              <li>Corrección inteligente.</li>
-              <li>Conversación libre con Mario.</li>
-              <li>Evaluación de pronunciación más avanzada.</li>
+              <li>✅ Frontend publicado en GitHub Pages.</li>
+              <li>✅ Corrección local avanzada.</li>
+              <li>✅ Backend Node.js incluido en el ZIP.</li>
+              <li>⏳ Falta desplegar backend en Render/Vercel/Railway y poner OPENAI_API_KEY.</li>
             </ul>
           </div>
         </div>
       </section>
     </main>
   </div>
-
 <script src="app.js"></script>
 </body>
 </html>

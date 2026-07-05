@@ -1,4 +1,4 @@
-const CACHE='mario-v5-cache';
+const CACHE='mario-v6-cache';
 const FILES=['./','./index.html','./style.css','./app.js','./manifest.json','./assets/icon.svg'];
 self.addEventListener('install',e=>e.waitUntil(caches.open(CACHE).then(c=>c.addAll(FILES))));
 self.addEventListener('fetch',e=>e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request))));
