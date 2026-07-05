@@ -1,10 +1,10 @@
 {
-  "name": "American English Coach AI - Mario",
+  "name": "Mario Coach AI V5",
   "short_name": "Mario English",
-  "start_url": "/",
+  "start_url": "./",
   "display": "standalone",
-  "background_color": "#071122",
-  "theme_color": "#123c84",
+  "background_color": "#050b18",
+  "theme_color": "#153f88",
   "icons": [
     {
       "src": "assets/icon.svg",
