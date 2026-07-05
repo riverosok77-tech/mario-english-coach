@@ -3,30 +3,28 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>
+<meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate, max-age=0"/>
 <meta http-equiv="Pragma" content="no-cache"/>
 <meta http-equiv="Expires" content="0"/>
-<title>Mario Coach AI V11</title>
-<link rel="manifest" href="manifest.json"/>
-<link rel="stylesheet" href="style.css?v=11.0"/>
+<title>Mario Coach AI V12</title>
+<link rel="stylesheet" href="style-v12.css?build=120001"/>
 </head>
 <body>
 <div class="app">
 <header class="header">
   <div class="logo">👨🏻‍🏫</div>
   <div>
-    <h1>Mario Coach AI V11</h1>
-    <p>American English · B1 → B2 · Gemini Ultimate</p>
+    <h1>Mario Coach AI V12</h1>
+    <p>American English · B1 → B2 · Gemini Ultimate · No Cache</p>
   </div>
 </header>
 
 <section class="hero">
-  <span class="badge">🇺🇸 General American Accent · V11 Ultimate</span>
-  <h2>Hi Mario! Today we train like a complete English academy.</h2>
-  <p>V11 agrega examen B1/B2, plan diario, conversación IA, speaking, shadowing, pronunciación, XP, racha y diagnóstico.</p>
+  <span class="badge">🇺🇸 V12 Anti‑Cache Definitiva</span>
+  <h2>Hi Mario! This version fixes the old cache problem.</h2>
+  <p>V12 no usa Service Worker ni archivos viejos. Está pensada para publicarse en un repo nuevo y evitar que Chrome siga mostrando V10.</p>
   <div class="actions">
-    <button class="primary" onclick="marioSpeak('Hi Mario! Welcome to version eleven. Today we will practice English like a complete academy.')">🔊 Escuchar a Mario</button>
-    <button onclick="installApp()">📲 Instalar app</button>
+    <button class="primary" onclick="marioSpeak('Hi Mario! Version twelve is ready. This version fixes the old cache problem.')">🔊 Escuchar a Mario</button>
     <button onclick="startDailyClass()">🚀 Clase de hoy</button>
   </div>
 </section>
@@ -53,7 +51,7 @@
 <section id="daily" class="screen active"><div class="panel">
 <p class="label">Clase diaria B1 → B2</p>
 <h2 id="dailyTitle">Today's focus: clear speaking</h2>
-<p id="dailyPlan">Paso 1: escucha. Paso 2: responde. Paso 3: recibe corrección. Paso 4: repite la versión natural.</p>
+<p>Paso 1: escucha. Paso 2: responde. Paso 3: recibe corrección. Paso 4: repite la versión natural.</p>
 <h3 id="dailyQuestion">What did you do today?</h3>
 <div class="actions">
 <button onclick="marioSpeak(getText('dailyQuestion'))">🔊 Escuchar pregunta</button>
@@ -130,21 +128,21 @@
 <section id="progress" class="screen"><div class="panel">
 <p class="label">Tu progreso</p>
 <h2 id="levelText">Nivel estimado: B1 en progreso</h2>
-<p id="progressText">Practica todos los días para subir tu promedio y tu racha.</p>
+<p>Practica todos los días para subir tu promedio y tu racha.</p>
 <button onclick="resetProgress()">Reiniciar progreso</button>
 <div id="progressBox" class="feedback"></div>
 </div></section>
 
 <section id="status" class="screen"><div class="panel">
 <p class="label">Estado de conexión</p>
-<h2>V11 Ultimate conectada</h2>
-<p>Backend Gemini integrado y limpieza de caché incluida.</p>
+<h2>V12 conectada a Gemini</h2>
+<p>Esta versión no usa Service Worker. Así evitamos que vuelva a cargar V10.</p>
 <button class="success" onclick="testApi()">Probar conexión</button>
-<button onclick="clearOldCache()">Limpiar caché manual</button>
+<button onclick="clearLocalData()">Limpiar datos locales</button>
 <div id="apiStatus" class="feedback">Toca “Probar conexión”.</div>
 </div></section>
 </main>
 </div>
-<script src="app.js?v=11.0"></script>
+<script src="app-v12.js?build=120001"></script>
 </body>
 </html>
